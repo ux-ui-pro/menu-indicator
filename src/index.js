@@ -1,28 +1,50 @@
 export default class MenuIndicator {
-	constructor({ media, entry, exit, change }) {
-		this.MQ = window.matchMedia(media)
-		this.handleChange = this.handleChange.bind(this)
-		this.MQ.addEventListener('change', this.handleChange)
+	constructor(navClass, navItemClass, navIndicatorClass, activeItemClass) {
+		this.nav = document.querySelector(navClass)
 
-		this.entry = entry
-		this.exit = exit
-		this.change = change
+		if (!this.nav) return
 
-		this.trigger(this.MQ)
+		this.navItems = Array.from(this.nav?.querySelectorAll(navItemClass) || [])
+		this.navIndicator = this.nav?.querySelector(navIndicatorClass)
+		this.activeItemClass = activeItemClass
+		this.loaded = this.loaded.bind(this)
+		this.listeners = this.listeners.bind(this)
+		this.updateActiveItem = this.updateActiveItem.bind(this)
+		this.offset = this.offset.bind(this)
+
+		this.loaded()
+		this.resize()
+		this.listeners()
 	}
 
-	trigger(MQ) {
-		const current = MQ.matches
-
-		if (current !== this.prev) {
-			current ? this.entry?.(MQ) : this.exit?.(MQ)
-
-			this.change?.(MQ)
-			this.prev = current
-		}
+	offset(e) {
+		const { offsetLeft, offsetWidth } = e
+		this.navIndicator.style.cssText = `--mi-left: ${offsetLeft}px; --mi-width: ${offsetWidth}px;`
 	}
 
-	handleChange() {
-		this.trigger(this.MQ)
+	updateActiveItem() {
+		const activeItem = this.nav.querySelector(this.activeItemClass)
+		this.navIndicator.style.cssText = activeItem ? `--mi-left: ${activeItem.offsetLeft}px; --mi-width:${activeItem.offsetWidth}px;` : `--mi-left: auto; --mi-width: auto;`
+	}
+
+	loaded() {
+		window.addEventListener('load', this.updateActiveItem)
+	}
+
+	resize() {
+		const resizeObserver = new ResizeObserver(this.updateActiveItem)
+		resizeObserver.observe(this.nav)
+	}
+
+	listeners() {
+		this.nav.addEventListener('click', this.updateActiveItem)
+		this.nav.addEventListener('mouseleave', this.updateActiveItem)
+		this.navItems.forEach(item => item.addEventListener('mouseenter', () => this.offset(item)))
+
+		document.body.addEventListener('click', (e) => {
+			if (e.target.tagName === 'A') {
+				setTimeout(() => { this.updateActiveItem() }, 550)
+			}
+		})
 	}
 }
