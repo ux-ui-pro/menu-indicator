@@ -1,0 +1,33 @@
+{
+  "name": "menu-indicator",
+  "version": "0.0.1",
+  "description": "Creating animated sliding menu indicator using vanilla JavaScript",
+  "author": "ux-ui.pro",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ux-ui-pro/menu-indicator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ux-ui-pro/menu-indicator/issues"
+  },
+  "source": "src/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.module.js",
+  "scripts": {
+    "serve": "parcel watch",
+    "build": "parcel build",
+    "clean": "rm -rf dist .parcel-cache"
+  },
+  "devDependencies": {
+    "parcel": "~2.9.2"
+  },
+  "keywords": [
+    "menu",
+    "indicator",
+    "sliding",
+    "navigation",
+    "vanilla",
+    "animated"
+  ]
+}
