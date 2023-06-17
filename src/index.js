@@ -28,7 +28,12 @@ export default class MenuIndicator {
 	}
 
 	loaded() {
-		window.addEventListener('load', this.updateActiveItem)
+		if (document.fonts) {
+			document.fonts.ready.then(() => { this.updateActiveItem() })
+		} else {
+			const fontLoader = document.fonts || new FontFaceSet()
+			fontLoader.load().then(() => { this.updateActiveItem() })
+		}
 	}
 
 	resize() {

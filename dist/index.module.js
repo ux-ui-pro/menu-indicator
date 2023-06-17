@@ -22,7 +22,15 @@ class $cf838c15c8b009ba$export$2e2bcd8739ae039 {
         this.navIndicator.style.cssText = activeItem ? `--mi-left: ${activeItem.offsetLeft}px; --mi-width:${activeItem.offsetWidth}px;` : `--mi-left: auto; --mi-width: auto;`;
     }
     loaded() {
-        window.addEventListener("load", this.updateActiveItem);
+        if (document.fonts) document.fonts.ready.then(()=>{
+            this.updateActiveItem();
+        });
+        else {
+            const fontLoader = document.fonts || new FontFaceSet();
+            fontLoader.load().then(()=>{
+                this.updateActiveItem();
+            });
+        }
     }
     resize() {
         const resizeObserver = new ResizeObserver(this.updateActiveItem);
