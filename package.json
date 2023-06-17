@@ -1,6 +1,6 @@
 {
   "name": "menu-indicator",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Creating animated sliding menu indicator using vanilla JavaScript",
   "author": "ux-ui.pro",
   "license": "MIT",
