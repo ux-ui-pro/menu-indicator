@@ -23,12 +23,12 @@ class $cf838c15c8b009ba$export$2e2bcd8739ae039 {
     }
     loaded() {
         if (document.fonts) document.fonts.ready.then(()=>{
-            this.updateActiveItem();
+            window.addEventListener("load", this.updateActiveItem);
         });
         else {
             const fontLoader = document.fonts || new FontFaceSet();
             fontLoader.load().then(()=>{
-                this.updateActiveItem();
+                window.addEventListener("load", this.updateActiveItem);
             });
         }
     }

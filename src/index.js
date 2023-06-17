@@ -29,10 +29,14 @@ export default class MenuIndicator {
 
 	loaded() {
 		if (document.fonts) {
-			document.fonts.ready.then(() => { this.updateActiveItem() })
+			document.fonts.ready.then(() => {
+				window.addEventListener('load', this.updateActiveItem)
+			})
 		} else {
 			const fontLoader = document.fonts || new FontFaceSet()
-			fontLoader.load().then(() => { this.updateActiveItem() })
+			fontLoader.load().then(() => {
+				window.addEventListener('load', this.updateActiveItem)
+			})
 		}
 	}
 
