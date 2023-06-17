@@ -32,15 +32,7 @@ class $4fa36e821943b400$export$2e2bcd8739ae039 {
         this.navIndicator.style.cssText = activeItem ? `--mi-left: ${activeItem.offsetLeft}px; --mi-width:${activeItem.offsetWidth}px;` : `--mi-left: auto; --mi-width: auto;`;
     }
     loaded() {
-        if (document.fonts) document.fonts.ready.then(()=>{
-            window.addEventListener("load", this.updateActiveItem);
-        });
-        else {
-            const fontLoader = document.fonts || new FontFaceSet();
-            fontLoader.load().then(()=>{
-                window.addEventListener("load", this.updateActiveItem);
-            });
-        }
+        window.addEventListener("load", this.updateActiveItem);
     }
     resize() {
         const resizeObserver = new ResizeObserver(this.updateActiveItem);
