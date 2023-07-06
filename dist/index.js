@@ -18,6 +18,7 @@ class $4fa36e821943b400$export$2e2bcd8739ae039 {
         this.listeners = this.listeners.bind(this);
         this.updateActiveItem = this.updateActiveItem.bind(this);
         this.offset = this.offset.bind(this);
+        this.isClick = false;
         if (!this.nav) return;
         this.loaded();
         this.resize();
@@ -28,6 +29,7 @@ class $4fa36e821943b400$export$2e2bcd8739ae039 {
         this.navIndicator.style.cssText = `--mi-left: ${offsetLeft}px; --mi-width: ${offsetWidth}px;`;
     }
     updateActiveItem() {
+        if (this.isClick) return;
         const activeItem = this.nav.querySelector(this.activeItemClass);
         this.navIndicator.style.cssText = activeItem ? `--mi-left: ${activeItem.offsetLeft}px; --mi-width:${activeItem.offsetWidth}px;` : `--mi-left: auto; --mi-width: auto;`;
     }
@@ -39,7 +41,13 @@ class $4fa36e821943b400$export$2e2bcd8739ae039 {
         resizeObserver.observe(this.nav);
     }
     listeners() {
-        this.nav.addEventListener("click", this.updateActiveItem);
+        this.nav.addEventListener("click", ()=>{
+            this.isClick = true;
+            setTimeout(()=>{
+                this.isClick = false;
+            }, 1000);
+            this.updateActiveItem();
+        });
         this.nav.addEventListener("mouseleave", this.updateActiveItem);
         this.navItems.forEach((item)=>item.addEventListener("mouseenter", ()=>this.offset(item)));
     }

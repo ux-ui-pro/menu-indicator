@@ -8,6 +8,7 @@ export default class MenuIndicator {
 		this.listeners = this.listeners.bind(this)
 		this.updateActiveItem = this.updateActiveItem.bind(this)
 		this.offset = this.offset.bind(this)
+		this.isClick = false
 
 		if (!this.nav) return
 
@@ -22,6 +23,7 @@ export default class MenuIndicator {
 	}
 
 	updateActiveItem() {
+		if (this.isClick) return
 		const activeItem = this.nav.querySelector(this.activeItemClass)
 		this.navIndicator.style.cssText = activeItem ? `--mi-left: ${activeItem.offsetLeft}px; --mi-width:${activeItem.offsetWidth}px;` : `--mi-left: auto; --mi-width: auto;`
 	}
@@ -36,7 +38,15 @@ export default class MenuIndicator {
 	}
 
 	listeners() {
-		this.nav.addEventListener('click', this.updateActiveItem)
+		this.nav.addEventListener('click', () => {
+			this.isClick = true
+
+			setTimeout(() => {
+				this.isClick = false
+			}, 1000)
+
+			this.updateActiveItem()
+		})
 		this.nav.addEventListener('mouseleave', this.updateActiveItem)
 		this.navItems.forEach(item => item.addEventListener('mouseenter', () => this.offset(item)))
 	}
