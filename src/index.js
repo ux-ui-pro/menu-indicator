@@ -1,9 +1,6 @@
 export default class MenuIndicator {
 	constructor(navClass, navItemClass, navIndicatorClass, activeItemClass) {
 		this.nav = document.querySelector(navClass)
-
-		if (!this.nav) return
-
 		this.navItems = Array.from(this.nav?.querySelectorAll(navItemClass) || [])
 		this.navIndicator = this.nav?.querySelector(navIndicatorClass)
 		this.activeItemClass = activeItemClass
@@ -11,6 +8,8 @@ export default class MenuIndicator {
 		this.listeners = this.listeners.bind(this)
 		this.updateActiveItem = this.updateActiveItem.bind(this)
 		this.offset = this.offset.bind(this)
+
+		if (!this.nav) return
 
 		this.loaded()
 		this.resize()
@@ -40,11 +39,5 @@ export default class MenuIndicator {
 		this.nav.addEventListener('click', this.updateActiveItem)
 		this.nav.addEventListener('mouseleave', this.updateActiveItem)
 		this.navItems.forEach(item => item.addEventListener('mouseenter', () => this.offset(item)))
-
-		document.body.addEventListener('click', (e) => {
-			if (e.target.tagName === 'A') {
-				setTimeout(() => { this.updateActiveItem() }, 550)
-			}
-		})
 	}
 }

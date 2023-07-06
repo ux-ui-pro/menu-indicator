@@ -9,7 +9,7 @@
 [![GitHub package version](https://img.shields.io/github/package-json/v/ux-ui-pro/menu-indicator.svg)](https://github.com/ux-ui-pro/menu-indicator)
 [![NPM Downloads](https://img.shields.io/npm/dm/menu-indicator.svg?style=flat)](https://www.npmjs.org/package/menu-indicator)
 
-<sup>600B gzipped</sup>
+<sup>500B gzipped</sup>
 <h3><a href="https://codepen.io/ux-ui/pen/ZEmWEYW">Demo</a></h3>
 
 </div>

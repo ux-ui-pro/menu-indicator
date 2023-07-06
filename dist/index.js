@@ -11,7 +11,6 @@ $parcel$export(module.exports, "default", () => $4fa36e821943b400$export$2e2bcd8
 class $4fa36e821943b400$export$2e2bcd8739ae039 {
     constructor(navClass, navItemClass, navIndicatorClass, activeItemClass){
         this.nav = document.querySelector(navClass);
-        if (!this.nav) return;
         this.navItems = Array.from(this.nav?.querySelectorAll(navItemClass) || []);
         this.navIndicator = this.nav?.querySelector(navIndicatorClass);
         this.activeItemClass = activeItemClass;
@@ -19,6 +18,7 @@ class $4fa36e821943b400$export$2e2bcd8739ae039 {
         this.listeners = this.listeners.bind(this);
         this.updateActiveItem = this.updateActiveItem.bind(this);
         this.offset = this.offset.bind(this);
+        if (!this.nav) return;
         this.loaded();
         this.resize();
         this.listeners();
@@ -42,11 +42,6 @@ class $4fa36e821943b400$export$2e2bcd8739ae039 {
         this.nav.addEventListener("click", this.updateActiveItem);
         this.nav.addEventListener("mouseleave", this.updateActiveItem);
         this.navItems.forEach((item)=>item.addEventListener("mouseenter", ()=>this.offset(item)));
-        document.body.addEventListener("click", (e)=>{
-            if (e.target.tagName === "A") setTimeout(()=>{
-                this.updateActiveItem();
-            }, 550);
-        });
     }
 }
 
